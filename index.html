@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUARKORBIT.COM | Space AI Computing Satellite Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-black: #0a0a1a;
+            --quark-blue: #00b4ff;
+            --orbit-purple: #9d00ff;
+            --compute-green: #00ff9d;
+            --satellite-gold: #ffd700;
+            --nebula-pink: #ff00ff;
+            --cosmic-gray: #1a1a2e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Audiowide', sans-serif;
+            background: radial-gradient(ellipse at center, #0a0a1a 0%, #000010 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 太空背景 */
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.9;
+        }
+        
+        /* 粒子轨道 */
+        .particle-orbits {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 卫星轨道动画 */
+        .satellite-orbit {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80vh;
+            height: 80vh;
+            border: 1px dashed rgba(0, 180, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbitRotate 60s linear infinite;
+            z-index: -1;
+        }
+        
+        .satellite-orbit:nth-child(2) {
+            width: 60vh;
+            height: 60vh;
+            animation: orbitRotate 40s linear infinite reverse;
+            border-color: rgba(157, 0, 255, 0.2);
+        }
+        
+        .satellite-orbit:nth-child(3) {
+            width: 100vh;
+            height: 100vh;
+            animation: orbitRotate 80s linear infinite;
+            border-color: rgba(0, 255, 157, 0.2);
+        }
+        
+        @keyframes orbitRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 太空头部 */
+        .space-header {
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .space-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--quark-blue), var(--orbit-purple), transparent);
+        }
+        
+        .space-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--compute-green), var(--satellite-gold), transparent);
+        }
+        
+        .quark-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .logo-quark {
+            color: var(--quark-blue);
+            text-shadow: 0 0 20px rgba(0, 180, 255, 0.5);
+            display: inline-block;
+            animation: quarkPulse 3s infinite alternate;
+        }
+        
+        .logo-orbit {
+            color: var(--orbit-purple);
+            text-shadow: 0 0 20px rgba(157, 0, 255, 0.5);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo-orbit::after {
+            content: '🛰️';
+            position: absolute;
+            top: -25px;
+            right: -30px;
+            font-size: 1.8rem;
+            animation: satelliteFloat 4s infinite ease-in-out;
+        }
+        
+        @keyframes quarkPulse {
+            0% { text-shadow: 0 0 10px var(--quark-blue); }
+            100% { text-shadow: 0 0 30px var(--quark-blue), 0 0 40px var(--quark-blue); }
+        }
+        
+        @keyframes satelliteFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+        
+        .space-tagline {
+            font-size: 1.3rem;
+            color: var(--satellite-gold);
+            margin-top: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .space-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .space-stat {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 180, 255, 0.3);
+            min-width: 180px;
+        }
+        
+        .stat-label {
+            color: var(--nebula-pink);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .stat-value {
+            color: var(--compute-green);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        /* 太空算力概念 */
+        .compute-concept {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .compute-concept::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--quark-blue), var(--orbit-purple), var(--compute-green));
+        }
+        
+        .concept-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .concept-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            color: #ccc;
+        }
+        
+        .compute-formula {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .formula-part {
+            font-size: 1.3rem;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .quark-formula {
+            background: rgba(0, 180, 255, 0.2);
+            color: var(--quark-blue);
+        }
+        
+        .orbit-formula {
+            background: rgba(157, 0, 255, 0.2);
+            color: var(--orbit-purple);
+        }
+        
+        .compute-formula {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--compute-green);
+        }
+        
+        /* 太空优势网格 */
+        .space-advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .space-advantage {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(157, 0, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .space-advantage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 180, 255, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .space-advantage:hover {
+            transform: translateY(-10px);
+            border-color: var(--quark-blue);
+            box-shadow: 0 15px 35px rgba(0, 180, 255, 0.2);
+        }
+        
+        .space-advantage:hover::before {
+            opacity: 1;
+        }
+        
+        .advantage-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--satellite-gold);
+        }
+        
+        .advantage-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .advantage-desc {
+            color: #aaa;
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+        
+        /* 太空价格部分 */
+        .space-pricing {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(10, 10, 26, 0.9));
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+            position: relative;
+        }
+        
+        .space-pricing::before {
+            content: '🛰️';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            background: var(--space-black);
+            padding: 0 1rem;
+        }
+        
+        .orbit-price {
+            margin-bottom: 2rem;
+        }
+        
+        .price-amount {
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--satellite-gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-label {
+            color: var(--quark-blue);
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* 三期轨道付款 */
+        .orbit-payment-plan {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .orbit-phase {
+            background: rgba(26, 26, 46, 0.8);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .orbit-phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--quark-blue), var(--compute-green));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .orbit-phase:hover {
+            transform: translateY(-5px);
+            border-color: var(--orbit-purple);
+        }
+        
+        .orbit-phase:hover::before {
+            opacity: 1;
+        }
+        
+        .phase-symbol {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--compute-green);
+        }
+        
+        .phase-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--satellite-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .phase-title {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .phase-desc {
+            color: #888;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* 太空按钮 */
+        .orbit-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--quark-blue), var(--orbit-purple));
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 1.3rem 4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 180, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .orbit-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 180, 255, 0.5);
+            background: linear-gradient(90deg, var(--orbit-purple), var(--compute-green));
+        }
+        
+        .orbit-button::after {
+            content: '🚀';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        /* 太空联系方式 */
+        .space-contact {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            text-align: center;
+            position: relative;
+        }
+        
+        .space-contact::before {
+            content: '📡';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            background: var(--space-black);
+            padding: 0 1rem;
+        }
+        
+        .contact-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--compute-green);
+        }
+        
+        .contact-subtitle {
+            color: var(--quark-blue);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .space-email {
+            font-size: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            color: var(--satellite-gold);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 1rem 0;
+            text-decoration: none;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .space-email:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.3);
+        }
+        
+        .contact-note {
+            margin-top: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* 太空页脚 */
+        .space-footer {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(26, 26, 46, 0.8);
+            color: #666;
+            position: relative;
+        }
+        
+        .space-footer::before {
+            content: '✨';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+        
+        .footer-info {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .orbit-status {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--compute-green);
+            border-radius: 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+            animation: orbitStatus 2s infinite;
+        }
+        
+        @keyframes orbitStatus {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .quark-logo {
+                font-size: 2.8rem;
+            }
+            
+            .space-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .space-stat {
+                min-width: 250px;
+            }
+            
+            .orbit-payment-plan {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .space-advantages {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-amount {
+                font-size: 4rem;
+            }
+            
+            .space-email {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+                word-break: break-all;
+            }
+            
+            .satellite-orbit {
+                width: 60vh;
+                height: 60vh;
+            }
+            
+            .satellite-orbit:nth-child(2),
+            .satellite-orbit:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 太空背景 -->
+    <canvas id="space-canvas"></canvas>
+    <div class="particle-orbits"></div>
+    <div class="satellite-orbit"></div>
+    <div class="satellite-orbit"></div>
+    <div class="satellite-orbit"></div>
+    
+    <div class="container">
+        <header class="space-header">
+            <div class="quark-logo">
+                <span class="logo-quark">QUARK</span><span class="logo-orbit">ORBIT</span>
+            </div>
+            <div class="space-tagline">SPACE AI COMPUTING SATELLITE NETWORK</div>
+            
+            <div class="space-stats">
+                <div class="space-stat">
+                    <div class="stat-label">DOMAIN</div>
+                    <div class="stat-value">QUARKORBIT.COM</div>
+                </div>
+                <div class="space-stat">
+                    <div class="stat-label">CHARACTERS</div>
+                    <div class="stat-value">10 + ".com"</div>
+                </div>
+                <div class="space-stat">
+                    <div class="stat-label">CONCEPT</div>
+                    <div class="stat-value">SPACE COMPUTE</div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <section class="compute-concept">
+                <h1 class="concept-title">THE NEXT BATTLEGROUND: SPACE AI COMPUTING</h1>
+                <p class="concept-subtitle">
+                    <span style="color: var(--quark-blue); font-weight: 600;">QUARK</span> represents the fundamental building blocks of matter. 
+                    <span style="color: var(--orbit-purple); font-weight: 600;">ORBIT</span> represents the trajectory of satellites in space. 
+                    Together, they define the future of <span style="color: var(--compute-green); font-weight: 600;">space-based AI computing infrastructure</span>.
+                </p>
+                
+                <div class="compute-formula">
+                    <span class="formula-part quark-formula">QUARK</span>
+                    <span style="color: #666; margin: 0 1rem;">+</span>
+                    <span class="formula-part orbit-formula">ORBIT</span>
+                    <span style="color: #666; margin: 0 1rem;">=</span>
+                    <span class="formula-part compute-formula">SPACE AI COMPUTE</span>
+                </div>
+            </section>
+            
+            <section class="space-advantages">
+                <div class="space-advantage">
+                    <div class="advantage-icon">🛰️</div>
+                    <div class="advantage-title">ORBITAL COMPUTE SATELLITES</div>
+                    <div class="advantage-desc">
+                        AI computing clusters in low Earth orbit, providing global, 
+                        low-latency compute access. Energy from solar arrays, cooling from space vacuum.
+                    </div>
+                </div>
+                <div class="space-advantage">
+                    <div class="advantage-icon">⚡</div>
+                    <div class="advantage-title">ZERO-GRAVITY AI TRAINING</div>
+                    <div class="advantage-desc">
+                        Train massive AI models in microgravity environments, 
+                        enabling new architectures impossible on Earth. Reduce thermal constraints by 90%.
+                    </div>
+                </div>
+                <div class="space-advantage">
+                    <div class="advantage-icon">🌌</div>
+                    <div class="advantage-title">DEEP SPACE COMPUTE</div>
+                    <div class="advantage-desc">
+                        Edge computing for space exploration. AI-powered analysis of astronomical data, 
+                        autonomous spacecraft control, and extraterrestrial research.
+                    </div>
+                </div>
+            </section>
+            
+            <section class="space-pricing">
+                <div class="orbit-price">
+                    <div class="price-amount">$25,800</div>
+                    <div class="price-label">10-CHAR SPACE DOMAIN ACQUISITION</div>
+                </div>
+                
+                <div class="price-label" style="margin-bottom: 2rem;">
+                    3-ORBIT PAYMENT PLAN • SPACE INFRASTRUCTURE INVESTMENT
+                </div>
+                
+                <div class="orbit-payment-plan">
+                    <div class="orbit-phase">
+                        <div class="phase-symbol">🛰️</div>
+                        <div class="phase-amount">$8,600</div>
+                        <div class="phase-title">LAUNCH ORBIT</div>
+                        <div class="phase-desc">Initial domain transfer & space compute framework</div>
+                    </div>
+                    <div class="orbit-phase">
+                        <div class="phase-symbol">⚡</div>
+                        <div class="phase-amount">$8,600</div>
+                        <div class="phase-title">STABLE ORBIT</div>
+                        <div class="phase-desc">Mid-term completion & technical documentation</div>
+                    </div>
+                    <div class="orbit-phase">
+                        <div class="phase-symbol">🌌</div>
+                        <div class="phase-amount">$8,600</div>
+                        <div class="phase-title">GEOSYNC ORBIT</div>
+                        <div class="phase-desc">Final transfer & space deployment rights</div>
+                    </div>
+                </div>
+                
+                <button class="orbit-button" id="acquireButton">
+                    INITIATE LAUNCH SEQUENCE
+                </button>
+            </section>
+            
+            <section class="space-contact" id="contact">
+                <div class="contact-title">GROUND STATION COMMUNICATION</div>
+                <div class="contact-subtitle">DIRECT LINE TO MISSION CONTROL</div>
+                <div class="space-email" id="emailDisplay">
+                    JOSHUA369X@GMAIL.COM
+                </div>
+                <div class="contact-note">
+                    24/7 GROUND STATION MONITORING • ENCRYPTED SPACE COMMS • ORBITAL INQUIRIES
+                </div>
+            </section>
+        </main>
+        
+        <footer class="space-footer">
+            <div class="footer-info">
+                QUARKORBIT.COM | SPACE AI COMPUTING SATELLITE NETWORK
+                <span class="orbit-status">ORBITAL • ONLINE • COMPUTE READY</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 太空背景动画
+        const canvas = document.getElementById('space-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let satellites = [];
+        const starCount = 200;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 0.5;
+                this.brightness = Math.random() * 0.8 + 0.2;
+                this.twinkleSpeed = Math.random() * 0.02 + 0.01;
+                this.twinkleOffset = Math.random() * Math.PI * 2;
+                this.color = Math.random() > 0.7 ? 'rgba(0, 180, 255, 0.9)' : 
+                            Math.random() > 0.4 ? 'rgba(157, 0, 255, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+            }
+            
+            update() {
+                this.twinkleOffset += this.twinkleSpeed;
+                if (this.twinkleOffset > Math.PI * 2) this.twinkleOffset = 0;
+            }
+            
+            draw() {
+                const twinkle = Math.sin(this.twinkleOffset) * 0.5 + 0.5;
+                const currentBrightness = this.brightness * (0.5 + twinkle * 0.5);
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color.replace('0.9', currentBrightness.toString());
+                ctx.fill();
+            }
+        }
+        
+        class Satellite {
+            constructor() {
+                this.orbitRadius = Math.random() * Math.min(canvas.width, canvas.height) * 0.4 + 100;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 0.005 + 0.002;
+                this.size = Math.random() * 4 + 2;
+                this.color = Math.random() > 0.5 ? 'rgba(0, 255, 157, 0.9)' : 'rgba(255, 215, 0, 0.9)';
+                this.trail = [];
+                this.maxTrail = 10;
+            }
+            
+            update() {
+                this.angle += this.speed;
+                if (this.angle > Math.PI * 2) this.angle = 0;
+                
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                
+                this.x = centerX + Math.cos(this.angle) * this.orbitRadius;
+                this.y = centerY + Math.sin(this.angle) * this.orbitRadius;
+                
+                // 更新轨迹
+                this.trail.unshift({x: this.x, y: this.y});
+                if (this.trail.length > this.maxTrail) {
+                    this.trail.pop();
+                }
+            }
+            
+            draw() {
+                // 绘制轨迹
+                for (let i = 0; i < this.trail.length; i++) {
+                    const point = this.trail[i];
+                    const opacity = 1 - (i / this.trail.length);
+                    const size = this.size * (1 - i / this.trail.length * 0.5);
+                    
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color.replace('0.9', (opacity * 0.3).toString());
+                    ctx.fill();
+                }
+                
+                // 绘制卫星
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                
+                // 卫星光环
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size + 3, 0, Math.PI * 2);
+                ctx.strokeStyle = this.color.replace('0.9', '0.3');
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+        
+        function initSpace() {
+            stars = [];
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star());
+            }
+            
+            satellites = [];
+            for (let i = 0; i < 5; i++) {
+                satellites.push(new Satellite());
+            }
+        }
+        
+        function drawNebulas() {
+            if (Math.random() < 0.02) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 200 + 100;
+                
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                const colors = [
+                    'rgba(157, 0, 255, 0.1)',
+                    'rgba(0, 180, 255, 0.1)',
+                    'rgba(255, 0, 255, 0.1)'
+                ];
+                gradient.addColorStop(0, colors[Math.floor(Math.random() * colors.length)]);
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+            }
+        }
+        
+        function drawParticleStreams() {
+            // 绘制粒子流
+            if (Math.random() < 0.05) {
+                const startX = Math.random() * canvas.width;
+                const startY = Math.random() * canvas.height;
+                const endX = Math.random() * canvas.width;
+                const endY = Math.random() * canvas.height;
+                
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.strokeStyle = 'rgba(0, 180, 255, 0.1)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                // 绘制粒子
+                for (let i = 0; i < 5; i++) {
+                    const progress = Math.random();
+                    const x = startX + (endX - startX) * progress;
+                    const y = startY + (endY - startY) * progress;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 255, 157, 0.6)';
+                    ctx.fill();
+                }
+            }
+        }
+        
+        function animateSpace() {
+            ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制星云
+            drawNebulas();
+            
+            // 绘制粒子流
+            drawParticleStreams();
+            
+            // 更新和绘制星星
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            // 更新和绘制卫星
+            satellites.forEach(satellite => {
+                satellite.update();
+                satellite.draw();
+            });
+            
+            // 偶尔创建新的卫星
+            if (Math.random() < 0.001 && satellites.length < 8) {
+                satellites.push(new Satellite());
+            }
+            
+            requestAnimationFrame(animateSpace);
+        }
+        
+        initSpace();
+        animateSpace();
+        
+        // 交互功能
+        const acquireButton = document.getElementById('acquireButton');
+        const emailDisplay = document.getElementById('emailDisplay');
+        
+        acquireButton.addEventListener('click', function() {
+            const originalText = this.textContent;
+            this.textContent = '🚀 INITIATING LAUNCH SEQUENCE...';
+            this.style.background = 'linear-gradient(90deg, var(--orbit-purple), var(--compute-green))';
+            
+            setTimeout(() => {
+                this.textContent = '🛰️ ACHIEVING ORBITAL INSERTION...';
+                
+                setTimeout(() => {
+                    this.textContent = '⚡ SPACE COMPUTE ONLINE!';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'mailto:joshua369x@gmail.com?subject=QuarkOrbit.com%20Domain%20Acquisition&body=I%27m%20interested%20in%20acquiring%20QuarkOrbit.com%20for%20%2425,800%20via%20the%203-orbit%20payment%20plan.%20Let%27s%20discuss%20space%20AI%20computing.';
+                        
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.style.background = 'linear-gradient(90deg, var(--quark-blue), var(--orbit-purple))';
+                        }, 2000);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        });
+        
+        emailDisplay.addEventListener('click', function() {
+            const originalText = this.textContent;
+            this.textContent = '📡 SIGNAL TRANSMITTED TO GROUND!';
+            this.style.background = 'rgba(0, 255, 157, 0.2)';
+            this.style.color = '#00ff9d';
+            
+            navigator.clipboard.writeText('joshua369x@gmail.com').then(() => {
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = 'rgba(255, 215, 0, 0.1)';
+                    this.style.color = 'var(--satellite-gold)';
+                }, 1500);
+            });
+        });
+        
+        // 太空键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 's' || e.key === 'S') {
+                // 发射新卫星
+                for (let i = 0; i < 2; i++) {
+                    setTimeout(() => {
+                        const satellite = new Satellite();
+                        satellite.orbitRadius = Math.random() * Math.min(canvas.width, canvas.height) * 0.3 + 50;
+                        satellites.push(satellite);
+                    }, i * 500);
+                }
+                
+                // 视觉反馈
+                document.querySelector('.logo-orbit').style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    document.querySelector('.logo-orbit').style.transform = 'scale(1)';
+                }, 500);
+            }
+        });
+        
+        // 页面加载效果
+        window.addEventListener('load', () => {
+            document.querySelector('.quark-logo').style.opacity = '1';
+            
+            // 延迟显示优势卡片
+            const advantages = document.querySelectorAll('.space-advantage');
+            advantages.forEach((advantage, index) => {
+                setTimeout(() => {
+                    advantage.style.opacity = '1';
+                    advantage.style.transform = 'translateY(0)';
+                }, 300 + index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
