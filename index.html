@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="QuarkOrbit.com - The premium domain for the future of Space AI, Exawatt-scale Computing, and Satellite Energy Grids. Own the infrastructure of tomorrow.">
-    <meta name="keywords" content="quarkorbit, space AI, exawatts, satellite computing, AI domain, Elon Musk energy currency, orbital data centers, future tech investment">
-    <meta name="author" content="QuarkOrbit Ventures">
-    <meta property="og:title" content="QuarkOrbit.com | The Future of Space AI & Exawatt Computing">
-    <meta property="og:description" content="Exawatts or you’re not really trying. Secure the domain for the next era of orbital intelligence.">
-    <meta property="og:url" content="https://quarkorbit.com">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="QuarkOrbit.com - The premium domain for the future of Space AI, Exawatt-scale Computing, and Satellite Energy Grids.">
+    <meta name="keywords" content="quarkorbit, space AI, exawatts, satellite computing, AI domain, Elon Musk energy currency">
     <title>QuarkOrbit.com | Future Space AI & Exawatt Computing</title>
     
     <style>
@@ -33,31 +28,124 @@
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* --- Dynamic Background --- */
-        .stars {
+        /* --- BACKGROUND SYSTEM (Planet & Satellite) --- */
+        .universe-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             z-index: -1;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        /* Stars */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            opacity: 0.8;
+        }
+
+        /* Planet (Earth/AI Core) */
+        .planet {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at 30% 30%, #2b3a6e, #000);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 60px rgba(0, 243, 255, 0.1),
+                inset -20px -20px 50px rgba(0,0,0,0.9);
+            position: absolute;
+            z-index: 1;
         }
         
-        /* --- Typography & Header Effects --- */
+        /* Planet Grid/Atmosphere Effect */
+        .planet::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0,
+                transparent 48px,
+                rgba(0, 243, 255, 0.05) 50px
+            );
+            opacity: 0.3;
+            animation: planetSpin 60s linear infinite;
+        }
+
+        /* Orbit Ring */
+        .orbit-ring {
+            width: 800px;
+            height: 800px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            position: absolute;
+            transform: rotateX(75deg); /* Tilted perspective */
+            transform-style: preserve-3d;
+            z-index: 2;
+        }
+
+        /* Satellite Container (Rotates around the ring) */
+        .satellite-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            animation: orbitMotion 20s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        /* The Satellite Itself */
+        .satellite {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            position: absolute;
+            top: 50%; 
+            right: -10px; /* Position on the rim */
+            transform: translateY(-50%) rotateX(-75deg); /* Counter-rotate to stay upright */
+            box-shadow: 0 0 15px var(--neon-blue);
+            border-radius: 3px;
+        }
+
+        /* Satellite Solar Panels */
+        .satellite::before, .satellite::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            width: 25px;
+            height: 16px;
+            background: rgba(0, 243, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .satellite::before { left: -25px; }
+        .satellite::after { right: -25px; }
+
+        @keyframes planetSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes orbitMotion { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+
+        /* --- HEADER & TYPOGRAPHY --- */
         header {
             padding: 2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             position: fixed;
             width: 100%;
             z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo-container {
@@ -68,53 +156,26 @@
             text-transform: uppercase;
         }
 
-        /* Quark: Quantum Glitch Effect */
-        .quark {
-            color: var(--neon-blue);
-            display: inline-block;
-            position: relative;
-            animation: glitch 3s infinite;
-        }
-        
-        /* Orbit: Gravitational Rotation Effect */
-        .orbit {
-            color: #ffffff;
-            display: inline-block;
-            position: relative;
-            animation: orbitFloat 4s ease-in-out infinite;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        /* .com: Digital Blink */
-        .dot-com {
-            font-size: 1rem;
-            color: var(--neon-purple);
-            vertical-align: top;
-            opacity: 0;
-            animation: blinkType 2s steps(2, start) infinite;
-        }
+        .quark { color: var(--neon-blue); display: inline-block; animation: glitch 3s infinite; }
+        .orbit { color: #ffffff; display: inline-block; animation: orbitFloat 4s ease-in-out infinite; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+        .dot-com { font-size: 1rem; color: var(--neon-purple); opacity: 0; animation: blinkType 2s steps(2, start) infinite; }
 
         @keyframes glitch {
             0% { transform: skew(0deg); }
-            2% { transform: skew(-20deg); opacity: 0.8; }
-            4% { transform: skew(20deg); opacity: 1; }
+            2% { transform: skew(-10deg); opacity: 0.9; }
+            4% { transform: skew(10deg); opacity: 1; }
             6% { transform: skew(0deg); }
             100% { transform: skew(0deg); }
         }
-
         @keyframes orbitFloat {
-            0%, 100% { transform: translateY(0) scale(1); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-            50% { transform: translateY(-5px) scale(1.02); text-shadow: 0 0 25px rgba(255,255,255,0.8); }
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+            50% { transform: translateY(-3px); text-shadow: 0 0 20px rgba(255,255,255,0.6); }
         }
+        @keyframes blinkType { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        @keyframes blinkType {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* --- Hero Section & Musk Quotes --- */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 90vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -122,122 +183,97 @@
             text-align: center;
             padding: 0 20px;
             position: relative;
+            z-index: 10;
         }
 
+        /* UPDATED: Smaller Font Size for Musk Quote */
         .musk-quote {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(90deg, #fff, var(--neon-blue), #fff);
+            font-size: clamp(1.2rem, 3vw, 2.2rem); /* Significantly reduced size */
+            font-weight: 600; /* Lighter weight for elegance */
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), var(--neon-blue), rgba(255,255,255,0.8));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             background-size: 200% auto;
-            animation: shine 4s linear infinite;
+            animation: shine 5s linear infinite;
             margin-bottom: 1rem;
-            line-height: 1.1;
+            letter-spacing: 1px;
+            max-width: 800px;
         }
 
         .sub-quote {
-            font-size: 1.5rem;
-            color: #aaa;
-            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
             font-style: italic;
         }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
+        @keyframes shine { to { background-position: 200% center; } }
 
-        /* --- 12 Areas Grid --- */
-        .grid-section {
-            padding: 5rem 10%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--neon-purple);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
+        /* --- GRID & CARDS --- */
+        .grid-section { padding: 5rem 10%; position: relative; z-index: 10; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; color: var(--neon-purple); text-transform: uppercase; letter-spacing: 2px; }
+        
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .card {
-            background: var(--glass);
+            background: rgba(10, 10, 16, 0.7); /* Darker background for readability over planet */
             border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 12px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: var(--neon-blue);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
         }
 
-        .card h3 {
-            margin-bottom: 1rem;
-            color: #fff;
-            font-size: 1.25rem;
-        }
+        .card h3 { margin-bottom: 0.8rem; color: #fff; font-size: 1.1rem; }
+        .card p { font-size: 0.9rem; color: #aaa; }
 
-        .card p {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-
-        /* --- Pricing & Currency Quote --- */
+        /* --- PRICING --- */
         .pricing-section {
             padding: 5rem 5%;
             text-align: center;
-            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(180deg, transparent, #000);
+            position: relative;
+            z-index: 10;
         }
 
         .energy-quote {
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
             color: var(--energy-gold);
             text-transform: uppercase;
-            margin-bottom: 3rem;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            animation: pulseEnergy 3s infinite alternate;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        @keyframes pulseEnergy {
-            from { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        }
-
-        .price-tag {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
+        .price-tag { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        
         .installments {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--neon-blue);
             margin-bottom: 2rem;
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(0, 243, 255, 0.05);
             display: inline-block;
             padding: 5px 15px;
             border-radius: 20px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
         }
 
-        /* --- CTA Buttons --- */
+        /* --- BUTTONS --- */
         .cta-btn {
             display: inline-block;
-            padding: 1.2rem 3rem;
-            font-size: 1.2rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: none;
@@ -245,38 +281,30 @@
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
             border: none;
             margin: 10px;
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
         }
 
-        .cta-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(0, 243, 255, 0.6);
-        }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 243, 255, 0.6); }
 
-        .contact-btn {
-            background: transparent;
-            border: 2px solid #fff;
-            color: #fff;
-        }
+        .contact-btn { background: transparent; border: 2px solid #fff; color: #fff; box-shadow: none; }
+        .contact-btn:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255,255,255,0.5); }
 
-        .contact-btn:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
-        }
-
-        /* --- Footer --- */
+        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 3rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             color: #666;
             font-size: 0.8rem;
+            position: relative;
+            z-index: 10;
+            background: #000;
         }
 
-        /* Toast Notification */
+        /* Toast */
         #toast {
             visibility: hidden;
             min-width: 250px;
@@ -293,44 +321,43 @@
             font-weight: bold;
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
         }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body>
 
-    <!-- Stars Background -->
-    <div class="stars"></div>
+    <!-- 3D Orbit Background System -->
+    <div class="universe-container">
+        <div class="stars"></div>
+        <div class="planet"></div>
+        <div class="orbit-ring">
+            <div class="satellite-wrapper">
+                <div class="satellite"></div>
+            </div>
+        </div>
+    </div>
 
     <header>
         <div class="logo-container">
             <span class="quark">quark</span><span class="orbit">orbit</span><span class="dot-com">.com</span>
         </div>
-        <a href="#pricing" style="color:white; text-decoration:none; font-weight:bold;">Acquire Now</a>
+        <!-- Simple Anchor -->
+        <a href="#pricing" style="color:white; text-decoration:none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 20px;">Acquire</a>
     </header>
 
     <main>
         <!-- Hero Section -->
         <section class="hero">
+            <!-- Musk Quote: Smaller Font Size -->
             <h1 class="musk-quote">“Exawatts or you’re not really trying”</h1>
-            <p class="sub-quote">The future belongs to Orbital AI & Infinite Compute.</p>
+            <p class="sub-quote">Powering the Next Generation of Space Intelligence</p>
         </section>
 
         <!-- 12 Key Areas Section -->
         <section class="grid-section" id="features">
-            <h2 class="section-title">Infrastructure for the Space AI Age</h2>
+            <h2 class="section-title">The QuarkOrbit Ecosystem</h2>
             <div class="grid-container">
                 <div class="card">
                     <h3>1. Exawatt Solar Arrays</h3>
@@ -392,7 +419,7 @@
                 <div class="installments">Available in 10 Monthly Installments</div>
             </div>
 
-            <!-- Buy Button with Dual Action -->
+            <!-- Buy Button -->
             <button class="cta-btn" onclick="handleBuy()">
                 Buy Now via Spaceship
             </button>
@@ -424,6 +451,8 @@
                 setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
+                // Fallback for older browsers if needed
+                alert("Email copied: " + email);
             });
         }
 
@@ -431,7 +460,6 @@
         function handleBuy() {
             // Direct purchasing link provided by user
             const directLink = "https://www.spaceship.com/s/buy/quarkorbit.com/IvTCnkuHg4zS0lVb";
-            
             // Open the link in a new tab
             window.open(directLink, '_blank');
         }
