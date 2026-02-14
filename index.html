@@ -2,467 +2,673 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="QuarkOrbit.com - The premium domain for the future of Space AI, Exawatt-scale Computing, and Satellite Energy Grids.">
-    <meta name="keywords" content="quarkorbit, space AI, exawatts, satellite computing, AI domain, Elon Musk energy currency">
-    <title>QuarkOrbit.com | Future Space AI & Exawatt Computing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QUARKORBIT.COM | The Future of Orbital AI & Quantum Computing</title>
     
+    <!-- SEO Optimization -->
+    <meta name="description" content="QuarkOrbit.com: The premium domain for Space-Based AI, Orbital Edge Computing, and Quantum Satellite Networks. Secure the infrastructure of the future economy.">
+    <meta name="keywords" content="QuarkOrbit, Space AI, Orbital Computing, Satellite Network, Quantum Internet, Space Economy, Artificial Intelligence, Elon Musk, Premium Domain">
+    <meta name="author" content="QuarkOrbit.com Seller">
+    <meta property="og:title" content="QUARKORBIT.COM - Scaling Intelligence Beyond Earth">
+    <meta property="og:description" content="Space-based AI is the only way to scale. Own the domain that defines the orbital compute revolution.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
         :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --energy-gold: #ffd700;
-            --deep-space: #05050a;
-            --glass: rgba(255, 255, 255, 0.05);
+            --quark-magenta: #ff00ff;
+            --orbit-cyan: #00ccff;
+            --deep-space: #010108;
+            --glass-bg: rgba(10, 10, 20, 0.85);
+            --glass-border: rgba(255, 0, 255, 0.2);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
 
         body {
             background-color: var(--deep-space);
-            color: #ffffff;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            line-height: 1.6;
-            min-height: 100vh;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- BACKGROUND SYSTEM (Planet & Satellite) --- */
-        .universe-container {
+        /* Background Canvas */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
+            opacity: 1;
         }
 
-        /* Stars */
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            opacity: 0.8;
-        }
-
-        /* Planet (Earth/AI Core) */
-        .planet {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle at 30% 30%, #2b3a6e, #000);
-            border-radius: 50%;
-            box-shadow: 
-                0 0 60px rgba(0, 243, 255, 0.1),
-                inset -20px -20px 50px rgba(0,0,0,0.9);
-            position: absolute;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
             z-index: 1;
         }
-        
-        /* Planet Grid/Atmosphere Effect */
-        .planet::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 50%;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent 0,
-                transparent 48px,
-                rgba(0, 243, 255, 0.05) 50px
-            );
-            opacity: 0.3;
-            animation: planetSpin 60s linear infinite;
-        }
 
-        /* Orbit Ring */
-        .orbit-ring {
-            width: 800px;
-            height: 800px;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            position: absolute;
-            transform: rotateX(75deg); /* Tilted perspective */
-            transform-style: preserve-3d;
-            z-index: 2;
-        }
-
-        /* Satellite Container (Rotates around the ring) */
-        .satellite-wrapper {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            animation: orbitMotion 20s linear infinite;
-            transform-style: preserve-3d;
-        }
-
-        /* The Satellite Itself */
-        .satellite {
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            position: absolute;
-            top: 50%; 
-            right: -10px; /* Position on the rim */
-            transform: translateY(-50%) rotateX(-75deg); /* Counter-rotate to stay upright */
-            box-shadow: 0 0 15px var(--neon-blue);
-            border-radius: 3px;
-        }
-
-        /* Satellite Solar Panels */
-        .satellite::before, .satellite::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            width: 25px;
-            height: 16px;
-            background: rgba(0, 243, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        .satellite::before { left: -25px; }
-        .satellite::after { right: -25px; }
-
-        @keyframes planetSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes orbitMotion { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-
-        /* --- HEADER & TYPOGRAPHY --- */
+        /* Header */
         header {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo-container {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        .quark { color: var(--neon-blue); display: inline-block; animation: glitch 3s infinite; }
-        .orbit { color: #ffffff; display: inline-block; animation: orbitFloat 4s ease-in-out infinite; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-        .dot-com { font-size: 1rem; color: var(--neon-purple); opacity: 0; animation: blinkType 2s steps(2, start) infinite; }
-
-        @keyframes glitch {
-            0% { transform: skew(0deg); }
-            2% { transform: skew(-10deg); opacity: 0.9; }
-            4% { transform: skew(10deg); opacity: 1; }
-            6% { transform: skew(0deg); }
-            100% { transform: skew(0deg); }
-        }
-        @keyframes orbitFloat {
-            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-            50% { transform: translateY(-3px); text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-        }
-        @keyframes blinkType { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 80vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
+            padding-top: 60px;
         }
 
-        /* UPDATED: Smaller Font Size for Musk Quote */
-        .musk-quote {
-            font-size: clamp(1.2rem, 3vw, 2.2rem); /* Significantly reduced size */
-            font-weight: 600; /* Lighter weight for elegance */
-            background: linear-gradient(90deg, rgba(255,255,255,0.8), var(--neon-blue), rgba(255,255,255,0.8));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: shine 5s linear infinite;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-            max-width: 800px;
-        }
-
-        .sub-quote {
-            font-size: 1.2rem;
-            color: #ccc;
+        .quote-container {
             margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
+            padding: 0 20px;
+        }
+
+        .musk-quote {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--orbit-cyan);
+            background: rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            border-left: 3px solid var(--orbit-cyan);
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #fff;
+            text-align: right;
+            font-weight: bold;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* ANIMATION: QUARK (Quantum Jitter/Uncertainty) */
+        .title-quark {
+            color: var(--quark-magenta);
+            position: relative;
+            animation: quantum-flux 0.1s infinite;
+        }
+
+        /* ANIMATION: ORBIT (Smooth Gravity Flow) */
+        .title-orbit {
+            color: var(--orbit-cyan);
+            text-shadow: 0 0 20px var(--orbit-cyan);
+            animation: orbital-float 4s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* ANIMATION: .COM (Stable Digital Anchor) */
+        .title-com {
+            color: #fff;
+            font-size: 2.5rem;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        @keyframes quantum-flux {
+            0% { transform: translate(1px, 1px) skewX(0deg); opacity: 0.9; }
+            50% { transform: translate(-1px, -1px) skewX(-2deg); opacity: 1; }
+            100% { transform: translate(0px, 0px) skewX(0deg); opacity: 0.95; }
+        }
+
+        @keyframes orbital-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .sub-headline {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            margin-top: 10px;
             font-style: italic;
         }
 
-        @keyframes shine { to { background-position: 200% center; } }
-
-        /* --- GRID & CARDS --- */
-        .grid-section { padding: 5rem 10%; position: relative; z-index: 10; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; color: var(--neon-purple); text-transform: uppercase; letter-spacing: 2px; }
-        
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: rgba(10, 10, 16, 0.7); /* Darker background for readability over planet */
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
-        }
-
-        .card h3 { margin-bottom: 0.8rem; color: #fff; font-size: 1.1rem; }
-        .card p { font-size: 0.9rem; color: #aaa; }
-
-        /* --- PRICING --- */
-        .pricing-section {
-            padding: 5rem 5%;
+        /* Vision Section */
+        .vision-section {
             text-align: center;
-            background: linear-gradient(180deg, transparent, #000);
-            position: relative;
-            z-index: 10;
-        }
-
-        .energy-quote {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            color: var(--energy-gold);
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .price-tag { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        
-        .installments {
-            font-size: 1rem;
-            color: var(--neon-blue);
-            margin-bottom: 2rem;
-            background: rgba(0, 243, 255, 0.05);
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-        }
-
-        /* --- BUTTONS --- */
-        .cta-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: #000;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            margin: 10px;
-            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
-        }
-
-        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 243, 255, 0.6); }
-
-        .contact-btn { background: transparent; border: 2px solid #fff; color: #fff; box-shadow: none; }
-        .contact-btn:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255,255,255,0.5); }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
+            margin: 6rem 0;
             padding: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #666;
-            font-size: 0.8rem;
-            position: relative;
-            z-index: 10;
-            background: #000;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255, 0, 255, 0.05) 100%);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
         }
 
-        /* Toast */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: var(--neon-blue);
-            color: #000;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+        .vision-quote {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #ddd;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        .vision-author {
+            display: block;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--quark-magenta);
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 2px;
+        }
+
+        .highlight { color: var(--quark-magenta); font-weight: 700; text-shadow: 0 0 5px var(--quark-magenta); }
+        .highlight-cyan { color: var(--orbit-cyan); font-weight: 700; }
+
+        /* Grid */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 8rem;
+        }
+
+        .grid-item {
+            background: rgba(10, 10, 20, 0.85);
+            border: 1px solid rgba(0, 204, 255, 0.15);
+            padding: 30px 20px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, var(--orbit-cyan), var(--quark-magenta));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        @media (hover: hover) {
+            .grid-item:hover {
+                transform: translateY(-5px);
+                border-color: var(--quark-magenta);
+                box-shadow: 0 0 30px rgba(255, 0, 255, 0.15);
+            }
+            .grid-item:hover::before { transform: scaleX(1); }
+        }
+
+        .grid-title {
+            font-family: 'Orbitron';
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .grid-desc { font-size: 0.9rem; color: #aab; line-height: 1.4; }
+
+        /* Icons */
+        .icon-svg {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            display: block;
+            stroke: var(--orbit-cyan);
+            stroke-width: 2;
+            fill: none;
+            filter: drop-shadow(0 0 5px rgba(0,204,255,0.4));
+        }
+
+        .anim-spin { animation: spin 4s linear infinite; transform-origin: center; }
+        .anim-pulse { animation: pulse-opacity 1s steps(5, end) infinite; }
+        .anim-dash { stroke-dasharray: 100; stroke-dashoffset: 100; animation: dash 3s linear infinite; }
+        .anim-float { animation: float-y 3s ease-in-out infinite; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse-opacity { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+        @keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        /* Pricing */
+        .pricing-section { text-align: center; margin-bottom: 8rem; }
+
+        .price-card {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(20,0,20,0.95), rgba(0,20,30,0.98));
+            padding: 5rem 3rem;
+            border: 1px solid var(--orbit-cyan);
+            box-shadow: 0 0 60px rgba(0, 204, 255, 0.15);
+            position: relative;
+            max-width: 90%;
+            border-radius: 20px;
+        }
+
+        .price-tag {
+            font-family: 'Orbitron';
+            font-size: 4.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 0px var(--quark-magenta);
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Orbitron';
+            font-size: 1.1rem;
+            padding: 18px 45px;
+            border: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 15px;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 2px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+        .btn-buy {
+            background: var(--orbit-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.4);
+        }
+        
+        .btn-buy:hover { background: #fff; box-shadow: 0 0 40px #fff; }
+
+        .btn-contact {
+            background: transparent;
+            color: var(--quark-magenta);
+            border: 1px solid var(--quark-magenta);
+        }
+
+        .btn-contact:hover { background: rgba(255, 0, 255, 0.1); color: #fff; box-shadow: 0 0 20px var(--quark-magenta); }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #555;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #222;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.8rem; }
+            .grid-section { grid-template-columns: 1fr; padding: 0 10px; }
+            .price-card { padding: 3rem 1.5rem; }
+            .price-tag { font-size: 3rem; }
+            .vision-quote { font-size: 1.1rem; }
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- 3D Orbit Background System -->
-    <div class="universe-container">
-        <div class="stars"></div>
-        <div class="planet"></div>
-        <div class="orbit-ring">
-            <div class="satellite-wrapper">
-                <div class="satellite"></div>
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <div class="container">
+        <header>
+            <div class="quote-container">
+                <div class="musk-quote">
+                    "In the long term, space-based AI is obviously the only way to scale."
+                    <span class="quote-author">- Elon Musk</span>
+                </div>
             </div>
-        </div>
+
+            <div class="main-title">
+                <span class="title-quark">QUARK</span>
+                <span class="title-orbit">ORBIT</span>
+                <span class="title-com">.COM</span>
+            </div>
+
+            <div class="sub-headline">
+                "Energy is the <span class="highlight-cyan">real currency</span>." <span style="font-size:0.8em; opacity:0.7;">- Elon Musk</span>
+            </div>
+            
+            <p style="font-family:'Share Tech Mono'; color: #888; letter-spacing: 3px; margin-top: 2rem; text-transform: uppercase;">
+                The Nexus of Orbital Intelligence
+            </p>
+        </header>
+
+        <section class="vision-section">
+            <p class="vision-quote">
+                "Space-based industries will <span class="highlight">vastly exceed the value of all of Earth</span>, given that you could harness roughly 100,000 times more energy than Earth..."
+                <span class="vision-author">- Elon Musk</span>
+            </p>
+        </section>
+
+        <!-- Grid Section: Quark + Orbit (AI & Space Compute) -->
+        <section class="grid-section">
+            
+            <!-- 1. Orbital Edge AI -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="20" stroke="var(--quark-magenta)" stroke-dasharray="2,5" class="anim-spin" fill="none"/>
+                    <path d="M50 20 L50 10 M50 80 L50 90 M20 50 L10 50 M80 50 L90 50" stroke="var(--orbit-cyan)" class="anim-pulse"/>
+                    <circle cx="50" cy="50" r="5" fill="#fff"/>
+                </svg>
+                <h3 class="grid-title">Orbital Edge AI</h3>
+                <p class="grid-desc">Real-time data processing in orbit to reduce latency.</p>
+            </div>
+
+            <!-- 2. Quantum Satellite Net -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <path d="M20 50 Q 50 10 80 50" stroke="var(--orbit-cyan)" fill="none" class="anim-dash"/>
+                    <path d="M20 50 Q 50 90 80 50" stroke="var(--quark-magenta)" fill="none" class="anim-dash" style="animation-delay:0.5s"/>
+                    <circle cx="20" cy="50" r="3" fill="#fff"/>
+                    <circle cx="80" cy="50" r="3" fill="#fff"/>
+                </svg>
+                <h3 class="grid-title">Quantum Internet</h3>
+                <p class="grid-desc">Entangled photon communication for unhackable links.</p>
+            </div>
+
+            <!-- 3. Satellite Swarm Logic -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="20" r="3" fill="var(--orbit-cyan)" class="anim-float"/>
+                    <circle cx="80" cy="80" r="3" fill="var(--orbit-cyan)" class="anim-float" style="animation-delay:1s"/>
+                    <circle cx="20" cy="80" r="3" fill="var(--orbit-cyan)" class="anim-float" style="animation-delay:2s"/>
+                    <path d="M50 20 L80 80 L20 80 Z" stroke="var(--quark-magenta)" stroke-dasharray="4" fill="none" class="anim-pulse"/>
+                </svg>
+                <h3 class="grid-title">Swarm Intelligence</h3>
+                <p class="grid-desc">Self-correcting autonomous satellite constellations.</p>
+            </div>
+
+            <!-- 4. Deep Space Compute -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <rect x="30" y="30" width="40" height="40" stroke="var(--orbit-cyan)" fill="none" class="anim-spin"/>
+                    <rect x="40" y="40" width="20" height="20" fill="var(--quark-magenta)" class="anim-pulse"/>
+                </svg>
+                <h3 class="grid-title">Deep Space Compute</h3>
+                <p class="grid-desc">High-performance servers stationed in deep vacuum.</p>
+            </div>
+
+            <!-- 5. Zero-G Manufacturing -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <path d="M20 80 L50 20 L80 80" stroke="var(--orbit-cyan)" stroke-width="2" fill="none"/>
+                    <line x1="20" y1="80" x2="80" y2="80" stroke="var(--quark-magenta)" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="5" fill="#fff" class="anim-float"/>
+                </svg>
+                <h3 class="grid-title">Zero-G Chip Fab</h3>
+                <p class="grid-desc">Printing perfect quantum wafers in microgravity.</p>
+            </div>
+
+            <!-- 6. Debris Tracking AI -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="30" stroke="var(--orbit-cyan)" stroke-dasharray="2,8" class="anim-spin" fill="none"/>
+                    <line x1="50" y1="50" x2="80" y2="50" stroke="var(--quark-magenta)" class="anim-spin" style="transform-origin:50px 50px;"/>
+                </svg>
+                <h3 class="grid-title">Orbital Cleanup AI</h3>
+                <p class="grid-desc">AI tracking and capturing space debris autonomously.</p>
+            </div>
+
+            <!-- 7. Energy Beaming -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <path d="M50 10 L50 90" stroke="var(--quark-magenta)" stroke-width="2" class="anim-dash"/>
+                    <ellipse cx="50" cy="50" rx="30" ry="10" stroke="var(--orbit-cyan)" fill="none" class="anim-spin"/>
+                </svg>
+                <h3 class="grid-title">Solar Power Beaming</h3>
+                <p class="grid-desc">Transmitting gigawatts from orbit to planetary surfaces.</p>
+            </div>
+
+            <!-- 8. Asteroid Mining -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <path d="M30 30 Q 50 10 70 30 Q 90 50 70 70 Q 50 90 30 70 Q 10 50 30 30" stroke="var(--orbit-cyan)" fill="none"/>
+                    <circle cx="40" cy="40" r="2" fill="var(--quark-magenta)"/>
+                    <circle cx="60" cy="60" r="2" fill="var(--quark-magenta)"/>
+                    <line x1="20" y1="80" x2="80" y2="20" stroke="var(--quark-magenta)" stroke-dasharray="4" opacity="0.5"/>
+                </svg>
+                <h3 class="grid-title">Resource Prospecting</h3>
+                <p class="grid-desc">AI analyzing spectral data for asteroid mining.</p>
+            </div>
+
+            <!-- 9. Digital Earth Twin -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="25" stroke="var(--orbit-cyan)" fill="none" opacity="0.5"/>
+                    <path d="M10 50 L90 50" stroke="var(--quark-magenta)" opacity="0.3"/>
+                    <path d="M50 10 L50 90" stroke="var(--quark-magenta)" opacity="0.3"/>
+                    <rect x="40" y="40" width="20" height="20" stroke="var(--orbit-cyan)" fill="none" class="anim-pulse"/>
+                </svg>
+                <h3 class="grid-title">Earth Digital Twin</h3>
+                <p class="grid-desc">Live planetary simulation for climate prediction.</p>
+            </div>
+
+            <!-- 10. Space Crypto -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <rect x="35" y="35" width="30" height="30" stroke="var(--quark-magenta)" fill="none"/>
+                    <path d="M25 25 L75 25 L75 75 L25 75 Z" stroke="var(--orbit-cyan)" stroke-dasharray="4" fill="none" class="anim-dash"/>
+                </svg>
+                <h3 class="grid-title">Orbital Cold Storage</h3>
+                <p class="grid-desc">Physically securing cryptographic keys in space.</p>
+            </div>
+
+            <!-- 11. Gravity Mapping -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <path d="M10 50 Q 30 80 50 50 T 90 50" stroke="var(--orbit-cyan)" fill="none" class="anim-float"/>
+                    <path d="M10 50 Q 30 20 50 50 T 90 50" stroke="var(--quark-magenta)" fill="none" class="anim-float" style="animation-delay:1s"/>
+                </svg>
+                <h3 class="grid-title">Quantum Sensors</h3>
+                <p class="grid-desc">Mapping gravity waves for navigation and exploration.</p>
+            </div>
+
+            <!-- 12. Interplanetary Logistics -->
+            <div class="grid-item">
+                <svg class="icon-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="5" fill="#fff"/>
+                    <circle cx="50" cy="50" r="35" stroke="var(--orbit-cyan)" stroke-dasharray="2,10" class="anim-spin" fill="none"/>
+                    <circle cx="50" cy="50" r="20" stroke="var(--quark-magenta)" stroke-dasharray="5,5" class="anim-spin" style="animation-direction:reverse;" fill="none"/>
+                </svg>
+                <h3 class="grid-title">Space Logistics AI</h3>
+                <p class="grid-desc">Optimizing trajectories for interplanetary transport.</p>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <div class="price-card">
+                <h2 style="color:#888; font-family:'Share Tech Mono'; margin-bottom:1rem; letter-spacing: 2px;">ASSET VALUATION</h2>
+                <div class="price-tag">$3,690</div>
+                <div style="margin-bottom: 2.5rem;">
+                    <span style="border: 1px solid var(--orbit-cyan); padding: 8px 15px; background: rgba(0,204,255,0.1); color: var(--orbit-cyan); font-family: 'Share Tech Mono';">
+                        10 Monthly Installments Available
+                    </span>
+                </div>
+                
+                <a href="https://www.spaceship.com/s/buy/quarkorbit.com/IvTCnkuHg4zS0lVb" target="_blank" class="btn btn-buy">
+                    Initialize Acquisition
+                </a>
+                
+                <br><br>
+                
+                <button onclick="copyEmail()" class="btn btn-contact" id="contactBtn">
+                    Contact Broker
+                </button>
+            </div>
+        </section>
+
+        <footer class="disclaimer">
+            <p>DISCLAIMER: QuarkOrbit.com is a premium domain asset available for acquisition. This site serves as a conceptual demonstration for Space-Based AI and Quantum Computing applications. Not affiliated with any government agency or specific aerospace corporation. Quotes are for thematic context only.</p>
+            <p style="margin-top:15px; color: #333;">&copy; 2026 QuarkOrbit.com Rights Holder.</p>
+        </footer>
     </div>
 
-    <header>
-        <div class="logo-container">
-            <span class="quark">quark</span><span class="orbit">orbit</span><span class="dot-com">.com</span>
-        </div>
-        <!-- Simple Anchor -->
-        <a href="#pricing" style="color:white; text-decoration:none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 20px;">Acquire</a>
-    </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <!-- Musk Quote: Smaller Font Size -->
-            <h1 class="musk-quote">“Exawatts or you’re not really trying”</h1>
-            <p class="sub-quote">Powering the Next Generation of Space Intelligence</p>
-        </section>
-
-        <!-- 12 Key Areas Section -->
-        <section class="grid-section" id="features">
-            <h2 class="section-title">The QuarkOrbit Ecosystem</h2>
-            <div class="grid-container">
-                <div class="card">
-                    <h3>1. Exawatt Solar Arrays</h3>
-                    <p>Harvesting massive solar energy in vacuum for planetary-scale AI training.</p>
-                </div>
-                <div class="card">
-                    <h3>2. Orbital Edge Computing</h3>
-                    <p>Processing data directly on satellites to reduce latency for global autonomy.</p>
-                </div>
-                <div class="card">
-                    <h3>3. AI Satellite Constellations</h3>
-                    <p>Self-organizing swarms of intelligent nodes for real-time Earth observation.</p>
-                </div>
-                <div class="card">
-                    <h3>4. Deep Space Data Centers</h3>
-                    <p>Cold-storage servers leveraging the natural vacuum and temperature of space.</p>
-                </div>
-                <div class="card">
-                    <h3>5. Quantum Telemetry Links</h3>
-                    <p>Unhackable, instantaneous communication channels for interplanetary assets.</p>
-                </div>
-                <div class="card">
-                    <h3>6. Autonomous Astro-Mining</h3>
-                    <p>AI-driven robotic prospectors identifying resources on asteroids and moons.</p>
-                </div>
-                <div class="card">
-                    <h3>7. Fusion Propulsion AI</h3>
-                    <p>Neural networks optimizing plasma containment for deep space travel.</p>
-                </div>
-                <div class="card">
-                    <h3>8. Interplanetary Internet</h3>
-                    <p>The backbone protocols (DTN) connecting Earth, Moon, and Mars.</p>
-                </div>
-                <div class="card">
-                    <h3>9. Zero-G Manufacturing</h3>
-                    <p>AI-controlled factories producing perfect fiber optics and crystals.</p>
-                </div>
-                <div class="card">
-                    <h3>10. Dark Sky Defense Systems</h3>
-                    <p>Automated orbital debris tracking and neutralization algorithms.</p>
-                </div>
-                <div class="card">
-                    <h3>11. Energy Currency Validation</h3>
-                    <p>Proof-of-Work nodes in orbit converting joules directly into value.</p>
-                </div>
-                <div class="card">
-                    <h3>12. Neural Lace Interfaces</h3>
-                    <p>High-bandwidth satellite up-links for direct human-AI symbiosis.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing & Action Section -->
-        <section class="pricing-section" id="pricing">
-            <h2 class="energy-quote">“Energy is the real currency”</h2>
-            
-            <div style="margin-bottom: 2rem;">
-                <div class="price-tag">$3,690 USD</div>
-                <div class="installments">Available in 10 Monthly Installments</div>
-            </div>
-
-            <!-- Buy Button -->
-            <button class="cta-btn" onclick="handleBuy()">
-                Buy Now via Spaceship
-            </button>
-            <br>
-            <!-- Contact Button -->
-            <button class="cta-btn contact-btn" onclick="copyEmail()">
-                Contact Seller
-            </button>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 QuarkOrbit.com. All rights reserved.</p>
-        <p style="margin-top:10px; opacity: 0.5;">
-            Related: Space X AI | Starlink Compute | Future Energy | Bitcoin | High Performance Computing
-        </p>
-    </footer>
-
-    <!-- Toast Notification -->
-    <div id="toast">Email Copied: joshua369x@gmail.com</div>
-
+    <!-- Scripts -->
     <script>
-        // Copy Email Function
+        // Copy Email Logic
         function copyEmail() {
             const email = "joshua369x@gmail.com";
             navigator.clipboard.writeText(email).then(() => {
-                const toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+                const btn = document.getElementById('contactBtn');
+                const originalText = btn.innerText;
+                btn.innerText = "COPIED TO CLIPBOARD";
+                btn.style.background = "var(--quark-magenta)";
+                btn.style.color = "#fff";
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "transparent";
+                    btn.style.color = "var(--quark-magenta)";
+                }, 3000);
             }).catch(err => {
-                console.error('Failed to copy: ', err);
-                // Fallback for older browsers if needed
-                alert("Email copied: " + email);
+                console.error('Failed to copy', err);
             });
         }
 
-        // Buy Button Function
-        function handleBuy() {
-            // Direct purchasing link provided by user
-            const directLink = "https://www.spaceship.com/s/buy/quarkorbit.com/IvTCnkuHg4zS0lVb";
-            // Open the link in a new tab
-            window.open(directLink, '_blank');
-        }
+        // Three.js Background (Optimized Sphere & Satellites)
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 16;
+            camera.position.y = 2;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // 1. Core Sphere (Radius 6, Wireframe Blue/Purple)
+            const geometry = new THREE.IcosahedronGeometry(6, 2);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x8a2be2, /* Violet/Purple */
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const earth = new THREE.Mesh(geometry, material);
+            scene.add(earth);
+
+            // Inner Core (Solid Black/Void to block transparency)
+            const coreGeo = new THREE.IcosahedronGeometry(5.9, 2);
+            const coreMat = new THREE.MeshBasicMaterial({ color: 0x010108 });
+            const core = new THREE.Mesh(coreGeo, coreMat);
+            scene.add(core);
+
+            // 2. Stars/Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 450; 
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorsArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i+=3) {
+                posArray[i] = (Math.random() - 0.5) * 70;
+                posArray[i+1] = (Math.random() - 0.5) * 70;
+                posArray[i+2] = (Math.random() - 0.5) * 70;
+                
+                // Mix Cyan and Magenta particles
+                const isCyan = Math.random() > 0.5;
+                if(isCyan) {
+                    colorsArray[i] = 0; colorsArray[i+1] = 0.8; colorsArray[i+2] = 1; // Cyan-ish
+                } else {
+                    colorsArray[i] = 1; colorsArray[i+1] = 0; colorsArray[i+2] = 1; // Magenta
+                }
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8
+            });
+            const starMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(starMesh);
+
+            // 3. Satellite Ring System (12 Satellites)
+            const satelliteGroup = new THREE.Group();
+            const satGeo = new THREE.BoxGeometry(0.2, 0.2, 0.4); // Tech box shape
+            const satMat = new THREE.MeshBasicMaterial({ color: 0x00ccff }); // Cyan Satellites
+            
+            for (let i = 0; i < 12; i++) {
+                const sat = new THREE.Mesh(satGeo, satMat);
+                const angle = (i / 12) * Math.PI * 2;
+                const radius = 9.5;
+                sat.position.x = Math.cos(angle) * radius;
+                sat.position.z = Math.sin(angle) * radius;
+                sat.rotation.y = -angle;
+                satelliteGroup.add(sat);
+            }
+            
+            // Orbital Path
+            const pathGeo = new THREE.TorusGeometry(9.5, 0.02, 32, 64);
+            const pathMat = new THREE.MeshBasicMaterial({ color: 0xff00ff, transparent: true, opacity: 0.3 }); // Magenta Orbit Line
+            const path = new THREE.Mesh(pathGeo, pathMat);
+            path.rotation.x = Math.PI / 2;
+            satelliteGroup.add(path);
+
+            scene.add(satelliteGroup);
+
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                earth.rotation.y += 0.002;
+                earth.rotation.z += 0.001;
+                starMesh.rotation.y -= 0.0005;
+                satelliteGroup.rotation.y += 0.004;
+                // Add wobble
+                satelliteGroup.rotation.x = Math.sin(Date.now() * 0.0005) * 0.15; 
+                
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        initThreeJS();
     </script>
 </body>
 </html>
